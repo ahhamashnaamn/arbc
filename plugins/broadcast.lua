@@ -21,7 +21,6 @@ local function run(msg, matches)
    end
 end
 
-
 return {
    description = "Broadcast message to all group participant.",
    usage = {
