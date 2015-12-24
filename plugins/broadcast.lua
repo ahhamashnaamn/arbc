@@ -20,7 +20,7 @@ local function run(msg, matches)
       chat_info(chat, returnids, {receiver=receiver})
    end
 end
-
+ 
 return {
    description = "Broadcast message to all group participant.",
    usage = {
