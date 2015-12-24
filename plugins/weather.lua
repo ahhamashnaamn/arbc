@@ -45,7 +45,7 @@ local function run(msg, matches)
   end
   return text
 end
-
+ 
 return {
   description = "weather in that city (Yogyakarta is default)", 
   usage = "!weather (city)",
