@@ -20,6 +20,13 @@ cd $HOME
 git clone https://github.com/sajadaltaie/arabicbot
 cd arabicbot
 ./launch.sh install
+git clone --resursive https://github.com/vysheng/tg.git
+cd tg
+mv lua-tg.c lua-th.bkp
+wget http://pastebin.com/raw.php?i=UNS6kh6k -O lua-tg.c
+./configure && make
+cd $HOME
+cd arabicbot
 ./launch.sh # هنا سوف يطلب منك رقم ورمز يصلك على حسابك
 تفعيل وتعطيل اوامر الابلاجنس
 
@@ -29,4 +36,3 @@ cd arabicbot
 
 التعطيل !plugins disable [اسم البلاجنس].
 
-Join الدخول لكروب الدعم
