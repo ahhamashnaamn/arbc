@@ -126,7 +126,7 @@ local function pre_process(msg)
     end
     redis:setex(post_count, TIME_CHECK, msgs+1)
   end
-
+ 
   -- SERVICE MESSAGE
   if msg.action and msg.action.type then
     local action = msg.action.type
