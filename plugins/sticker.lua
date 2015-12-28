@@ -363,7 +363,7 @@ do
       '%[(audio)%]',
       '%[(document)%]',
       '%[(photo)%]',
-      '^!(sticker) (.*)$',
+      '^[!/](sticker) (.*)$',
       '^!!tgservice (.+)$',
       '%[(video)%]'
     },
