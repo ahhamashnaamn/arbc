@@ -36,15 +36,9 @@ local function run(msg, matches)
 end
 
 return {
-   description = "Mention a message to all group participant.",
-   usage = {
-			moderator = {
-      "!tagall <message> : Mention all group members with custom message",
-      "!tagall : Mention all group members"},
-   },
    patterns = {
-      "^!(tagall) +(.+)$",
-      "^!(tagall)$",
+      "^[!/](tagall) +(.+)$",
+      "^[!/](tagall)$",
    },
    run = run,
    moderated = true
