@@ -89,7 +89,7 @@ do
     local chat_id = result.to.id
     local user_id = result.from.id
     local full_name = (result.from.first_name or '')..' '..(result.from.last_name or '')
-    if is_chat_msg(result) and not is_sudo(result) then
+    if is_chat_msg(result) and not is_momod(result) then
       if extra.match == 'kick' then
         chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
       elseif extra.match == 'ban' then
@@ -122,14 +122,14 @@ do
       local user_id = result.id
       local username = result.username
       if is_chat_msg(extra.msg) then
-        -- check if sudo users
-        local is_sudoers = false
+        -- check if momod users
+        local is_momoders = false
         for v,sudoer in pairs(_config.sudo_users) do
-          if sudoer == user_id then
-            is_sudoers = true
+          if momoder == user_id then
+            is_mpmoders = true
           end
         end
-        if not is_sudoers then
+        if not is_momoders then
           if extra.match == 'kick' then
             chat_del_user('chat#id'..chat_id, 'user#id'..result.id, ok_cb, false)
           elseif extra.match == 'ban' then
@@ -238,9 +238,9 @@ do
     end
 
     -- WHITELIST
-    -- Allow all sudo users even if whitelist is allowed
-    if redis:get('whitelist:enabled') and not is_sudo(msg) then
-      print('>>> banhammer : Whitelist enabled and not sudo')
+    -- Allow all momod users even if whitelist is allowed
+    if redis:get('whitelist:enabled') and not is_momod(msg) then
+      print('>>> banhammer : Whitelist enabled and not momod')
       -- Check if user or chat is whitelisted
       local allowed = redis:get('whitelist:user#id'..user_id) or false
       if not allowed then
@@ -262,7 +262,7 @@ do
       end
 
     else
-      print('>>> banhammer : Whitelist not enabled or is sudo')
+      print('>>> banhammer : Whitelist not enabled or is momod')
     end
 
     return msg
@@ -275,7 +275,7 @@ do
 
     if is_chat_msg(msg) then
       if matches[1] == 'kickme' then
-        if is_sudo(msg) or is_admin(msg) then
+        if is_momod(msg) or is_admin(msg) then
           return 'I won\'t kick an admin!'
         elseif is_mod(msg) then
           return 'I won\'t kick a moderator!'
@@ -394,37 +394,6 @@ do
   end
 
   return {
-    description = 'Plugin to manage bans, kicks and white/black lists.',
-    usage = {
-      user = {
-        '!kickme : Kick yourself out of this group.'
-      },
-      admin = {
-        '!superban : If type in reply, will ban user globally.',
-        '!superban <user_id>/@<username> : Kick user_id/username from all chat and kicks it if joins again',
-        '!superunban : If type in reply, will unban user globally.',
-        '!superunban <user_id>/@<username> : Unban user_id/username globally.'
-      },
-      moderator = {
-        '!antispam kick : Enable flood and spam protection. Offender will be kicked.',
-        '!antispam ban : Enable flood and spam protection. Offender will be banned.',
-        '!antispam disable : Disable flood and spam protection',
-        '!ban : If type in reply, will ban user from chat group.',
-        '!ban <user_id>/<@username>: Kick user from chat and kicks it if joins chat again',
-        '!banlist : List users banned from chat group.',
-        '!unban : If type in reply, will unban user from chat group.',
-        '!unban <user_id>/<@username>: Unban user',
-        '!kick : If type in reply, will kick user from chat group.',
-        '!kick <user_id>/<@username>: Kick user from chat group',
-        '!whitelist : If type in reply, allow user to use the bot when whitelist mode is enabled',
-        '!whitelist chat: Allow everybody on current chat to use the bot when whitelist mode is enabled',
-        '!whitelist delete chat: Remove chat from whitelist',
-        '!whitelist delete user <user_id>: Remove user from whitelist',
-        '!whitelist <enable>/<disable>: Enable or disable whitelist mode',
-        '!whitelist user <user_id>: Allow user to use the bot when whitelist mode is enabled',
-        '!unwhitelist : If type in reply, remove user from whitelist'
-      },
-    },
     patterns = {
       '^[!/](antispam) (.*)$',
       '^[!/](ban) (.*)$',
