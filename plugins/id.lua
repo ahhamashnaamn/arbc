@@ -32,10 +32,10 @@ do
     else
       local text = ''
       for k,user in pairs(founds) do
-        text = text..'Name: '..(user.first_name or '')..' '..(user.last_name or '')..'\n'
-               ..'First name: '..(user.first_name or '')..'\n'
-               ..'Last name: '..(user.last_name or '')..'\n'
-               ..'User name: @'..(user.username or '')..'\n'
+        text = text..'لاسم: '..(user.first_name or '')..' '..(user.last_name or '')..'\n'
+               ..'الاسم الاول: '..(user.first_name or '')..'\n'
+               ..'الاسم الثاني: '..(user.last_name or '')..'\n'
+               ..'المعرف: @'..(user.username or '')..'\n'
                ..'ID: '..(user.id  or '')..'\n\n'
       end
       send_msg(extra.receiver, text, ok_cb, false)
@@ -43,10 +43,10 @@ do
   end
 
   local function action_by_reply(extra, success, result)
-    local text = 'Name: '..(result.from.first_name or '')..' '..(result.from.last_name or '')..'\n'
-                 ..'First name: '..(result.from.first_name or '')..'\n'
-                 ..'Last name: '..(result.from.last_name or '')..'\n'
-                 ..'User name: @'..(result.from.username or '')..'\n'
+    local text = 'الاسم: '..(result.from.first_name or '')..' '..(result.from.last_name or '')..'\n'
+                 ..'الاسم الاول: '..(result.from.first_name or '')..'\n'
+                 ..'الاسم الثاني: '..(result.from.last_name or '')..'\n'
+                 ..'المعرف: @'..(result.from.username or '')..'\n'
                  ..'ID: '..result.from.id
     send_msg(extra.receiver, text, ok_cb,  true)
   end
@@ -92,13 +92,13 @@ do
             msgr = get_message(msg.reply_id, action_by_reply, {receiver=receiver})
           end
         else
-          local text = 'Name: '..(msg.from.first_name or '')..' '..(msg.from.last_name or '')..'\n'
-                       ..'First name: '..(msg.from.first_name or '')..'\n'
-                       ..'Last name: '..(msg.from.last_name or '')..'\n'
-                       ..'User name: @'..(msg.from.username or '')..'\n'
+          local text = 'الاسم: '..(msg.from.first_name or '')..' '..(msg.from.last_name or '')..'\n'
+                       ..'الاسم الاول: '..(msg.from.first_name or '')..'\n'
+                       ..'الاسم الثاني: '..(msg.from.last_name or '')..'\n'
+                       ..'المعرف: @'..(msg.from.username or '')..'\n'
                        ..'ID: ' .. msg.from.id
-          local text = text..'\n\nYou are in group '
-                       ..msg.to.title..' (ID: '..msg.to.id..')'
+          local text = text..'\n\nانت في كروب '
+                       ..msg.to.title..' (ID الكروب: '..msg.to.id..')'
           return text
         end
       elseif is_momod(msg) and matches[1] == 'chat' then
@@ -119,26 +119,10 @@ do
   end
 
   return {
-    description = 'Know your id or the id of a chat members.',
-    usage = {
-      user = {
-        '!id: Return your ID and the chat id if you are in one.'
-      },
-      moderator = {
-        '!id : Return ID of replied user if used by reply.',
-        '!id chat : Return the IDs of the current chat members.',
-        '!id chat txt : Return the IDs of the current chat members and send it as text file.',
-        '!id chat pm : Return the IDs of the current chat members and send it to PM.',
-        '!id chat pmtxt : Return the IDs of the current chat members, save it as text file and then send it to PM.',
-        '!id <id> : Return the IDs of the <id>.',
-        '!id @<user_name> : Return the member @<user_name> ID from the current chat.',
-        '!id <text> : Search for users with <text> on first_name, last_name, or print_name on current chat.'
-      },
-    },
     patterns = {
-      "^!id$",
-      "^!id (chat) (.*)$",
-      "^!id (.*)$"
+      "^[!/]id$",
+      "^[!/]id (chat) (.*)$",
+      "^[!/]id (.*)$"
     },
     run = run
   }
