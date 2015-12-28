@@ -207,17 +207,18 @@ function create_config( )
   -- A simple config with basic plugins and ourselves as privileged user
   config = {
     enabled_plugins = {
-      "echo",
+      "tagall",
+      "service_entergroup",
       "banhammer",
       "google",
       "groupmanager",
       "help",
       "id",
-      "img_google",
+      "sticker",
       "plugins",
-      "time",
+      "add_rem",
       "version",
-      "weather",
+      "link",
       "moderation"},
     sudo_users = {our_id},
     disabled_channels = {},
